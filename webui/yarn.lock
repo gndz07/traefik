@@ -4709,6 +4709,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/luxon@npm:^3":
+  version: 3.6.2
+  resolution: "@types/luxon@npm:3.6.2"
+  checksum: 10c0/7572ee52b3d3e9dd10464b90561a728b90f34b9a257751cc3ce23762693dd1d14fa98b7f103e2efe2c6f49033331f91de5681ffd65cca88618cefe555be326db
+  languageName: node
+  linkType: hard
+
 "@types/mdx@npm:^2.0.0":
   version: 2.0.13
   resolution: "@types/mdx@npm:2.0.13"
@@ -11364,6 +11371,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"luxon@npm:^3.6.1":
+  version: 3.6.1
+  resolution: "luxon@npm:3.6.1"
+  checksum: 10c0/906d57a9dc4d1de9383f2e9223e378c298607c1b4d17b6657b836a3cd120feb1c1de3b5d06d846a3417e1ca764de8476e8c23b3cd4083b5cdb870adcb06a99d5
+  languageName: node
+  linkType: hard
+
 "lz-string@npm:^1.5.0":
   version: 1.5.0
   resolution: "lz-string@npm:1.5.0"
@@ -15768,6 +15782,7 @@ __metadata:
     "@testing-library/user-event": "npm:^14.5.2"
     "@traefiklabs/faency": "npm:11.1.4"
     "@types/lodash": "npm:^4.17.16"
+    "@types/luxon": "npm:^3"
     "@types/node": "npm:^22.15.18"
     "@types/react": "npm:^18.2.0"
     "@types/react-dom": "npm:^18.2.19"
@@ -15790,6 +15805,7 @@ __metadata:
     jsdom: "npm:^24.0.0"
     lint-staged: "npm:^9.5.0"
     lodash: "npm:^4.17.21"
+    luxon: "npm:^3.6.1"
     msw: "npm:^2.1.7"
     prettier: "npm:^3.5.3"
     query-string: "npm:^6.9.0"

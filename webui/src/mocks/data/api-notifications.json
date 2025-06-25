@@ -1,0 +1,20 @@
+[
+  {
+    "id": "681b84eb39f8766bb0aac0d0",
+    "type": "error",
+    "message": "Connection to agent my-gateway-pfyfx has been lost",
+    "createdAt": "2025-05-07T16:06:03.291Z"
+  },
+  {
+    "id": "681b4d9b59e00d1c1c120c65",
+    "type": "info",
+    "message": "Connection to agent my-gateway-pfyfx has been recovered",
+    "createdAt": "2025-05-07T12:10:03.203Z"
+  },
+  {
+    "id": "680fa4d6466a26e1697168ba",
+    "type": "success",
+    "message": "Agent my-gateway-pfyfx has been discovered",
+    "createdAt": "2025-05-07T12:10:03.203Z"
+  }
+]

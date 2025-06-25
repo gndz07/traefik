@@ -27,6 +27,7 @@ import { useLocation } from 'react-router-dom'
 import { useWindowSize } from 'usehooks-ts'
 
 import Container from './Container'
+import Notifications from './Notifications'
 import { DARK_PRIMARY_COLOR, LIGHT_PRIMARY_COLOR } from './Page'
 
 import IconButton from 'components/buttons/IconButton'
@@ -313,6 +314,7 @@ export const TopNav = () => {
           />
         </Box>
       )}
+      <Notifications />
       <ThemeSwitcher />
 
       <DropdownMenu>

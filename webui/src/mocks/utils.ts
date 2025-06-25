@@ -15,7 +15,7 @@ interface DataItem {
 
 export const listHandlers = (
   route: string,
-  data: DataItem[] | Record<string, unknown> | null = null,
+  data: DataItem[] | Record<string, unknown> | Record<string, unknown>[] | null = null,
   noDelay: boolean = false,
   skipPagination = false,
 ) => [
@@ -27,8 +27,13 @@ export const listHandlers = (
     const sortBy = url.searchParams.get('sortBy') || 'name'
     const status = url.searchParams.get('status')
     let results = cloneDeep(data)
-    if (Array.isArray(results)) {
-      if (search) results = results.filter((x) => x.name.toLowerCase().includes(search.toLowerCase()))
+    if (
+      Array.isArray(results) &&
+      results.every(
+        (x): x is DataItem => typeof x === 'object' && x !== null && 'name' in x && typeof x.name === 'string',
+      )
+    ) {
+      if (search) results = results.filter((x) => x.name?.toLowerCase().includes(search.toLowerCase()))
       if (status) results = results.filter((x) => x.status === status)
       if (!results.length) return HttpResponse.json([], { headers: { 'X-Next-Page': '1' }, status: 200 })
 

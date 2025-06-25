@@ -1,9 +1,10 @@
-import { http, passthrough } from 'msw'
+import { http, HttpResponse, passthrough } from 'msw'
 
 import apiEntrypoints from './data/api-entrypoints.json'
 import apiHttpMiddlewares from './data/api-http_middlewares.json'
 import apiHttpRouters from './data/api-http_routers.json'
 import apiHttpServices from './data/api-http_services.json'
+import apiNotifications from './data/api-notifications.json'
 import apiOverview from './data/api-overview.json'
 import apiTcpMiddlewares from './data/api-tcp_middlewares.json'
 import apiTcpRouters from './data/api-tcp_routers.json'
@@ -13,6 +14,8 @@ import apiUdpServices from './data/api-udp_services.json'
 import apiVersion from './data/api-version.json'
 import eeApiErrors from './data/ee-api-errors.json'
 import { listHandlers } from './utils'
+
+const waitAsync = (seconds: number) => new Promise((res) => setTimeout(res, seconds * 1000))
 
 export const getHandlers = (noDelay: boolean = false) => [
   ...listHandlers('/api/entrypoints', apiEntrypoints, noDelay, true),
@@ -27,6 +30,12 @@ export const getHandlers = (noDelay: boolean = false) => [
   ...listHandlers('/api/udp/routers', apiUdpRouters, noDelay),
   ...listHandlers('/api/udp/services', apiUdpServices, noDelay),
   ...listHandlers('/api/version', apiVersion, noDelay),
+  ...listHandlers('/api/notifications', apiNotifications, noDelay),
   http.get('*.tsx', () => passthrough()),
   http.get('/img/*', () => passthrough()),
+  // delete notification(s)
+  http.post('/notifications', async () => {
+    await waitAsync(1)
+    return HttpResponse.json([], { status: 200 })
+  }),
 ]
