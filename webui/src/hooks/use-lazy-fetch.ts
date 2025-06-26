@@ -17,6 +17,7 @@ type FetchData<T extends DefaultData> = (
 
 export type LazyFetchResult<T extends DefaultData> = [FetchData<T>, LazyFetchResultType<T>]
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const pTimeout = (ms: number, promise: Promise<unknown>): any => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -82,11 +83,13 @@ const useLazyFetch = <T extends DefaultData>(globalUrl?: string, globalOptions?:
           loading: false,
           statusCode: res?.fetchResponse?.status,
         }
-      } catch (err: any) {
+      } catch (err: unknown) {
         setData(undefined)
-        setError(err)
+        setError(err as HttpError)
         setLoading(false)
-        setStatusCode(typeof err?.response?.status === 'number' ? err.response.status : 500)
+        setStatusCode(
+          typeof (err as HttpError)?.response?.status === 'number' ? (err as HttpError).response.status : 500,
+        )
         throw err
       }
     },

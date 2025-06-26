@@ -25,6 +25,7 @@ const fetcher = async <DataType = unknown>(
   input: RequestInfo,
   init?: RequestInit,
 ): Promise<FetcherResponse<DataType>> => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return fetch(input, init).then((res: any) => {
     const contentType = res.headers.get('Content-Type')
     const nextPage = res.headers.get('X-Next-Page')

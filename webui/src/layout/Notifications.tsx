@@ -10,13 +10,16 @@ import {
   PopoverPortal,
   Text,
 } from '@traefiklabs/faency'
-import { useCallback, useId, useMemo } from 'react'
+import { useCallback, useId, useMemo, useRef } from 'react'
 import { FiBell, FiCheck } from 'react-icons/fi'
+import { useLocation } from 'react-router-dom'
 import useSWR, { mutate } from 'swr'
+import { useLocalStorage } from 'usehooks-ts'
 
 import NotificationList from './NotificationsList'
 
 import useLazyFetch from 'hooks/use-lazy-fetch'
+import useMountEffect from 'hooks/use-mount-effect'
 
 const NewNotificationBadge = styled(Flex, {
   position: 'absolute',
@@ -49,15 +52,29 @@ const MarkAsReadButton = ({ notificationIds }: { notificationIds: string[] }) =>
 }
 
 const Notifications = () => {
+  const { pathname } = useLocation()
+  const [lastNotificationId, setLastNotificationId] = useLocalStorage('last-notif-id', undefined)
+  const popupTriggerRef = useRef<HTMLButtonElement>(null)
   const triggerId = useId()
   const { data: notifications } = useSWR('/notifications')
 
   const hasNotifications = useMemo(() => !!notifications?.length, [notifications])
 
+  useMountEffect(() => {
+    // open pop up only on dashboard
+    if (pathname === '/' && notifications?.length) {
+      const lastNotifId = notifications[0].id
+      if (lastNotifId !== lastNotificationId) {
+        popupTriggerRef.current?.click()
+        setLastNotificationId(lastNotifId)
+      }
+    }
+  }, [])
+
   return (
     <Flex>
       <Popover>
-        <PopoverTrigger aria-controls={triggerId} asChild>
+        <PopoverTrigger ref={popupTriggerRef} aria-controls={triggerId} asChild>
           <Button
             ghost
             css={{ px: '$2', color: '$buttonSecondaryText', position: 'relative' }}
